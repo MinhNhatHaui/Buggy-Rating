@@ -1,0 +1,92 @@
+# Playwright Automation Project
+
+This project uses [Playwright](https://playwright.dev/) for browser automation and end-to-end testing.
+
+## Features
+
+- Automated browser testing with Playwright  
+- Cross-browser support (Chromium, Firefox, WebKit)  
+- Parallel test execution  (in-progress)
+- Easy test writing and execution  
+- Screenshots and trace support for debugging  
+- Design follow POM (in-progress)
+
+## Prerequisites
+
+- Node.js v14 or newer  
+- npm or yarn  
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/MinhNhatHaui/Buggy-Rating.git
+cd playwright
+
+# Install dependencies
+npm install
+# or
+yarn install
+```
+
+## Configuration
+
+Create a `.env` file in the project root to configure environment variables:
+
+```ini
+BASE_URL=https://your-app-url.com
+HEADLESS=true
+```
+
+For other Playwright launch options, edit `playwright.config.ts`.
+
+## Usage
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+# or
+npx playwright test
+
+# Run tests in headed mode
+npx playwright test --headed
+
+# Generate HTML report
+npx playwright show-report
+```
+
+### Writing Tests
+
+Place your tests in the `tests/` directory. A basic test example:
+
+```ts
+import { test, expect } from '@playwright/test';
+
+test('homepage title', async ({ page }) => {
+    await page.goto(process.env.BASE_URL!);
+    await expect(page).toHaveTitle(/Home/);
+});
+```
+
+## Project Structure
+
+```
+.
+├── tests/                 # Test files
+├── playwright.config.ts   # Playwright configuration
+├── package.json
+├── tsconfig.json
+└── .env.example           # Example environment variables
+```
+
+## CI/CD Integration
+
+Add a job to your CI pipeline to run:
+
+```bash
+npm test
+npx playwright show-report
+```
+

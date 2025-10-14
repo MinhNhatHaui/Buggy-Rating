@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "allowJs": true,
+        "checkJs": true,
+        "module": "commonjs",
+        "baseUrl": ".",
+        "paths": {
+            "*": ["*", "features/*", "features/step_definitions/*"]
+        }
+    },
+    "exclude": ["node_modules", "dist"]
+}

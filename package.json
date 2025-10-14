@@ -1,0 +1,28 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:bdd": "cross-env PWDEBUG=0 DEBUG= PLAYWRIGHT_BROWSER_PATH=0 cucumber-js --require features/step_definitions/**/*.ts --require features/support/**/*.ts --require src/step_definitions/**/*.ts --require src/support/**/*.ts --require-module ts-node/register --format @cucumber/pretty-formatter --format json:cucumber-report.json 2>browser.log && npm run report:cucumber",
+    "test:bdd:tags": "cucumber-js --require-module ts-node/register --config ./cucumber.mjs -p default --tags",
+    "test:bdd:ui": "cucumber-js --require-module ts-node/register --config ./cucumber.mjs -p default --format json:cucumber-report.json && npm run report:cucumber",
+    "test:pw": "playwright test",
+    "report:cucumber": "rimraf test-results/screenshots && ts-node report.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@cucumber/pretty-formatter": "^2.3.0",
+    "@playwright/test": "^1.34.3",
+    "@types/cucumber-html-reporter": "^5.0.0",
+    "@types/node": "^24.7.2",
+    "cross-env": "^10.1.0",
+    "cucumber-html-reporter": "^7.2.0",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
