@@ -1,4 +1,4 @@
-name: Scheduled E2E Tests
+name: Scheduled E2E Tests (Scheduled)
 
 on:
   schedule:
