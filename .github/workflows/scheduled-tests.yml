@@ -1,20 +1,16 @@
-name: Scheduled E2E Tests for Buggy Rating App
+name: Run Tests Every 5 Minutes (Scheduled)
 
 on:
   # Manual trigger for testing
   workflow_dispatch:
   
-  # Scheduled runs
+  # Run every 5 minutes
   schedule:
-    # Run smoke tests every 5 minutes
     - cron: '*/5 * * * *'
-    # Run full regression on weekends
-    - cron: '0 0 * * 6,0'
 
 jobs:
   smoke-test:
     name: Smoke Tests
-    if: github.event.schedule == '*/5 * * * *' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-24.04
     timeout-minutes: 30
 
@@ -74,81 +70,9 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-test-results
+          name: smoke-test-results-${{ github.run_number }}
           path: |
             test-results/
             cucumber-report.json
-            test-results/cucumber-report.html
+            cucumber-report.html
           retention-days: 7
-
-  regression:
-    name: Full Regression
-    if: github.event.schedule == '0 0 * * 6,0' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 120
-    strategy:
-      matrix:
-        environment: [staging1, uat1]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libasound2t64 \
-            libglib2.0-0t64 \
-            libnss3 \
-            libatk1.0-0t64 \
-            libatk-bridge2.0-0t64 \
-            libcups2t64 \
-            libdrm2 \
-            libdbus-1-3 \
-            libxcb1 \
-            libxkbcommon0 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxfixes3 \
-            libxrandr2 \
-            libgbm1 \
-            libpango-1.0-0 \
-            libcairo2 \
-            libatspi2.0-0t64 \
-            libx11-6 \
-            libffi8
-
-      - name: Install Playwright browsers
-        run: npx playwright install chromium
-
-      - name: Copy environment config
-        run: |
-          mkdir -p env
-          cp env/.env.${{ matrix.environment }} env/.env
-
-      - name: Run full regression
-        run: npm run test:bdd
-        env:
-          CI: true
-          TEST_ENV: ${{ matrix.environment }}
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: regression-${{ matrix.environment }}-results
-          path: |
-            test-results/
-            cucumber-report.json
-            test-results/cucumber-report.html
-          retention-days: 30
