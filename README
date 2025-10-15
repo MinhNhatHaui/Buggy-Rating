@@ -90,11 +90,6 @@ npm test
 npx playwright show-report
 ```
 
-TODO:
-- Make sure in each step, every action should be done once the page is settle down and only take screenshot before an action is about to happen
-- Set up CI/CD
-- Set up run parallel
-- Set up run with tag
-- Set up run with different browser
+
 
 
