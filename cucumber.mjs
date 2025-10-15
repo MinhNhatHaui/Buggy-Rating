@@ -8,15 +8,12 @@ export default {
 
     // Load support + step files (use explicit files first)
     require: [
-      './support/world.ts',
-      './support/hooks.ts',
-      './steps/example.steps.ts'
-      // once it works, you can switch to './steps/**/*.ts'
+      'src/support/**/*.ts',
+      'src/step_definitions/**/*.ts'
     ],
 
     // Point to the feature(s)
-    paths: ['./features/example.feature'],
-    // later: ['./features/**/*.feature'],
+    paths: ['features/**/*.feature'],
 
     // Reporters must point to FILES, not directories
     format: [

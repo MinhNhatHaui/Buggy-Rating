@@ -1,5 +1,6 @@
 import { World, IWorldOptions, setWorldConstructor } from '@cucumber/cucumber';
 import { Browser, BrowserContext, Page, chromium } from '@playwright/test';
+import { config } from '../config/environment';
 
 export default class CustomWorld extends World {
     private browser: Browser | undefined;
@@ -10,6 +11,54 @@ export default class CustomWorld extends World {
 
     constructor(options: IWorldOptions) {
         super(options);
+    }
+
+    protected ensurePage(): Page {
+        if (!this.page) {
+            throw new Error('Page is not initialized. Make sure init() was called.');
+        }
+        return this.page;
+    }
+
+    async goto(path: string) {
+        const url = path.startsWith('http') ? path : `${config.baseUrl}${path}`;
+        return await this.ensurePage().goto(url);
+    }
+
+    async gotoHome() {
+        return await this.goto('/');
+    }
+
+    async click(selector: string, options?: any) {
+        return await this.ensurePage().click(selector, options);
+    }
+
+    async fill(selector: string, value: string, options?: any) {
+        return await this.ensurePage().fill(selector, value, options);
+    }
+
+    async waitForSelector(selector: string, options?: any) {
+        return await this.ensurePage().waitForSelector(selector, options);
+    }
+
+    async isVisible(selector: string) {
+        return await this.ensurePage().isVisible(selector);
+    }
+
+    async waitForTimeout(timeout: number) {
+        return await this.ensurePage().waitForTimeout(timeout);
+    }
+
+    async waitForLoadState(state: any, options?: any) {
+        return await this.ensurePage().waitForLoadState(state, options);
+    }
+
+    async $(selector: string) {
+        return await this.ensurePage().$(selector);
+    }
+
+    async locator(selector: string) {
+        return this.ensurePage().locator(selector);
     }
 
     async init(): Promise<void> {

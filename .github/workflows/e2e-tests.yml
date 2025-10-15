@@ -1,0 +1,93 @@
+name: Playwright E2E Tests
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Test Environment'
+        required: true
+        default: 'staging1'
+        type: choice
+        options:
+          - staging1
+          - sit1
+          - uat1
+      tags:
+        description: 'Test Tags (comma-separated, leave empty for all tests)'
+        required: false
+        type: string
+  
+  # Scheduled runs (UTC time)
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+    - cron: '0 12 * * *' # Daily at noon UTC
+
+  # Run on push to main branch
+  push:
+    branches: [ main ]
+  
+  # Run on pull requests to main branch
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Copy environment config
+        run: |
+          mkdir -p env
+          cp env/.env.${{ github.event.inputs.environment || 'staging1' }} env/.env
+
+      - name: Run Playwright tests
+        run: |
+          if [ "${{ github.event.inputs.tags }}" != "" ]; then
+            npm run test:bdd:tags "@${{ github.event.inputs.tags }}"
+          else
+            npm run test:bdd
+          fi
+        env:
+          CI: true
+          TEST_ENV: ${{ github.event.inputs.environment || 'staging1' }}
+
+      - name: Generate test report
+        if: always()
+        run: npm run report:cucumber
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            test-results/
+            cucumber-report.json
+            test-results/cucumber-report.html
+          retention-days: 30
+
+      - name: Upload Playwright traces
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-traces
+          path: test-results/traces/
+          retention-days: 30
