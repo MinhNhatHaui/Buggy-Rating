@@ -1,12 +1,12 @@
-name: Run Tests Every 5 Minutes (Scheduled)
+name: Run Tests Every 6 hours (Scheduled)
 
 on:
   # Manual trigger for testing
   workflow_dispatch:
-  
-  # Run every 5 minutes
+
+  # Run every 6 hours
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 */6 * * *'
 
 jobs:
   smoke-test:
