@@ -39,9 +39,9 @@ const getEnvironmentConfig = (): Environment => {
         local: process.env.LOCAL_BASE_URL || 'http://localhost:3000',
         staging: process.env.STAGING_BASE_URL || 'https://buggy.justtestit.org',
         production: process.env.PRODUCTION_BASE_URL || 'https://production.buggy.com',
-        uat1: process.env.UAT1_BASE_URL || 'https://uat1.buggy.justtestit.org',
-        sit1: process.env.SIT1_BASE_URL || 'https://sit1.buggy.justtestit.org',
-        staging1: process.env.STAGING1_BASE_URL || 'https://staging1.buggy.justtestit.org'
+        uat1: process.env.UAT1_BASE_URL || 'https://buggy.justtestit.org',
+        sit1: process.env.SIT1_BASE_URL || 'https://buggy.justtestit.org',
+        staging1: process.env.STAGING1_BASE_URL || 'https://buggy.justtestit.org'
     };
 
     return {
