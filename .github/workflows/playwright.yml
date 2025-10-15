@@ -16,7 +16,11 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: |
+        # Install libasound2t64 explicitly before Playwright setup
+        sudo apt-get update
+        sudo apt-get install -y libasound2t64
+        npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
     - uses: actions/upload-artifact@v3
