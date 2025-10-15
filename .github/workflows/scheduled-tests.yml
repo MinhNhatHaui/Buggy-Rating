@@ -2,8 +2,8 @@ name: Scheduled E2E Tests for Buggy Rating App
 
 on:
   schedule:
-    # Run smoke tests every 1 minute
-    - cron: '*/1 * * * *'
+    # Run smoke tests every 5 minutes
+    - cron: '*/5 * * * *'
     # Run full regression on weekends
     - cron: '0 0 * * 6,0'
 
