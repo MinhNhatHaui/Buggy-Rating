@@ -90,7 +90,6 @@ jobs:
             npm run test:bdd:tags "@${{ github.event.inputs.tags }}"
           else
             run: npm run test:bdd:tags "@login"
-
           fi
         env:
           CI: true
