@@ -133,7 +133,7 @@ jobs:
           cp env/.env.${{ matrix.environment }} env/.env
 
       - name: Run full regression
-        run: npm run test:bdd:tags "@login"
+        run: npm run test:bdd
         env:
           CI: true
           TEST_ENV: ${{ matrix.environment }}

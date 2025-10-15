@@ -46,7 +46,7 @@ jobs:
         # Install browsers without dependencies
         npx playwright install
     - name: Run Playwright tests
-      run: npm run test:bdd:smoke
+      run: npm run test:bdd:tags "@login"
       env:
         CI: true
     - uses: actions/upload-artifact@v4
