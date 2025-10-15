@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Playwright Tests for Buggy Rating App
 on:
   push:
     branches: [ main, master ]
