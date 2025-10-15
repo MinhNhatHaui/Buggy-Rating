@@ -72,8 +72,11 @@ export default class CustomWorld extends World {
         process.env.PWDEBUG = '0';
         process.env.DEBUG = '';
         
+        // Determine if running in CI environment
+        const isCI = process.env.CI === 'true';
+        
         this.browser = await chromium.launch({ 
-            headless: false,
+            headless: isCI, // Use headless mode in CI, headed mode locally
             args: ['--no-sandbox', '--disable-setuid-sandbox', '--start-maximized', '--silent'],
             logger: {
                 isEnabled: () => false,
