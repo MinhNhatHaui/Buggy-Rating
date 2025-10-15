@@ -39,12 +39,9 @@ jobs:
           libcairo2 \
           libatspi2.0-0t64 \
           libx11-6 \
-          libx264-dev \
           libffi8
-        # Skip the automatic dependency installation
-        PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci
-        # Install browsers without dependencies
-        npx playwright install
+        # Install browsers
+        npx playwright install chromium
     - name: Run Playwright tests
       run: npm run test:bdd:tags "@login"
       env:
