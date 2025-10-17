@@ -94,6 +94,8 @@ jobs:
         env:
           CI: true
           TEST_ENV: ${{ github.event.inputs.environment || 'staging1' }}
+          DEFAULT_USERNAME: ${{ secrets.DEFAULT_USERNAME }}
+          DEFAULT_PASSWORD: ${{ secrets.DEFAULT_PASSWORD }}
 
       - name: Generate test report
         if: always()

@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test:bdd": "cross-env cucumber-js --require src/step_definitions/**/*.ts --require src/support/**/*.ts --require-module ts-node/register --config ./cucumber.mjs --format @cucumber/pretty-formatter --format json:cucumber-report.json",
-    "test:bdd:tags": "cross-env cucumber-js --require src/step_definitions/**/*.ts --require src/support/**/*.ts --require-module ts-node/register --config ./cucumber.mjs --tags",
+    "test:bdd:tags": "cross-env cucumber-js --require src/step_definitions/**/*.ts --require src/support/**/*.ts --require-module ts-node/register --config ./cucumber.mjs --format @cucumber/pretty-formatter --format json:cucumber-report.json --tags",
     "test:bdd:logout": "npm run test:bdd:tags \"@logout\"",
     "test:bdd:smoke": "npm run test:bdd:tags \"@smoke\"",
     "test:bdd:ui": "PWDEBUG=1 npm run test:bdd",
     "test:pw": "playwright test",
-    "report:cucumber": "rimraf test-results/screenshots && ts-node report.ts",
+    "report:cucumber": "ts-node report.ts",
     "pretest": "rimraf test-results cucumber-report.json",
     "posttest": "npm run report:cucumber"
   },

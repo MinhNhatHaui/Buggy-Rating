@@ -3,3 +3,16 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 screenshots/
+
+# Environment files with sensitive data
+env/.env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Test reports
+cucumber-report.json
+cucumber-report.html

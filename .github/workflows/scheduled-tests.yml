@@ -65,6 +65,8 @@ jobs:
         env:
           CI: true
           TEST_ENV: staging1
+          DEFAULT_USERNAME: ${{ secrets.DEFAULT_USERNAME }}
+          DEFAULT_PASSWORD: ${{ secrets.DEFAULT_PASSWORD }}
 
       - name: Upload test results
         if: always()

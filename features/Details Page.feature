@@ -6,4 +6,5 @@ Feature: Validate the details in the page
     When I navigate to a model of "Diablo" from "Popular Make" as my choice
     Then I validate the details in the page
       | Engine | Max Speed |
-      | 6.5l   | 342km/h   |
+      | 6.0.l   | 25km/h   |
+    # TODO: Saving details to one json file and reading from it to verify model's description

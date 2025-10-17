@@ -1,38 +1,34 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import CustomWorld from '../support/world';
+import { expect } from '@playwright/test';
 import { config } from '../config/environment';
 
-Given('I am logged in as {string} with password {string}', async function (this: CustomWorld, username: string, password: string) {
-    // Navigate to the website
-    await this.gotoHome();
-
-    // Login
-    await this.fill('input[name="login"]', username);
-    await this.fill('input[name="password"]', password);
-    await this.click('button[type="submit"]');
-
-    // Verify login
-    await this.waitForSelector('.nav-link >> text=Profile', { timeout: config.timeouts.element });
+// Step for logging in with default credentials from environment
+Given('I am logged in with default credentials', async function (this: CustomWorld) {
+    const loginPage = this.pages!.loginPage;
+    
+    // Navigate to the website and login
+    await loginPage.goto();
+    await loginPage.loginWithDefaults();
+    await loginPage.waitForLogin();
 });
 
-When('I logout', async function (this: CustomWorld) {
-    await this.waitForTimeout(20000);
+// Step for logging in with specific credentials (still available if needed)
+Given('I am logged in as {string} with password {string}', async function (this: CustomWorld, username: string, password: string) {
+    const loginPage = this.pages!.loginPage;
     
-    try {
-        // Wait for the logout link to be visible and ready
-        await this.waitForSelector('//a[text()="Logout"]', { state: 'visible', timeout: config.timeouts.element });
-        await this.waitForLoadState('networkidle', { timeout: config.timeouts.network }).catch(() => {});
-        
-        // Click the logout link
-        const logoutLink = await this.$('//a[text()="Logout"]');
-        if (!logoutLink) throw new Error('Logout link not found');
-        
-        await logoutLink.click();
-        
-        // Wait for navigation after logout
-        await this.waitForLoadState('networkidle', { timeout: config.timeouts.network }).catch(() => {});
-    } catch (error) {
-        console.error('Logout failed:', error instanceof Error ? error.message : String(error));
-        throw error;
-    }
+    // Navigate to the website and login
+    await loginPage.goto();
+    await loginPage.login(username, password);
+    await loginPage.waitForLogin();
+});
+
+Then('I should see Profile menu on the header', async function (this: CustomWorld) {
+    const headerPage = this.pages!.headerPage;
+    await expect(headerPage.profileLink).toBeVisible();
+});
+
+Then('I should see my username {string} displayed on the homepage', async function (this: CustomWorld, username: string) {
+    const loginPage = this.pages!.loginPage;
+    await expect(loginPage.usernameDisplay).toHaveText(username);
 });

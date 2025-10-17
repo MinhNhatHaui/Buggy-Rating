@@ -7,7 +7,7 @@ const options: reporter.Options = {
     reportSuiteAsScenarios: true,
     scenarioTimestamp: true,
     launchReport: true,
-    screenshotsDirectory: './test-results/screenshots/',
+    screenshotsDirectory: 'test-results/screenshots/',
     storeScreenshots: true,
     noInlineScreenshots: false,
     metadata: {
@@ -17,7 +17,9 @@ const options: reporter.Options = {
         "Platform": "Windows",
         "Parallel": "Scenarios",
         "Executed": "Remote"
-    }
+    },
+    brandTitle: "Test Automation Report",
+    name: "Buggy Rating Tests"
 };
 
 reporter.generate(options);

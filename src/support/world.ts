@@ -1,13 +1,17 @@
 import { World, IWorldOptions, setWorldConstructor } from '@cucumber/cucumber';
 import { Browser, BrowserContext, Page, chromium } from '@playwright/test';
 import { config } from '../config/environment';
+import { PageObjectManager } from '../pages/PageObjectManager';
 
 export default class CustomWorld extends World {
     private browser: Browser | undefined;
     private context: BrowserContext | undefined;
     public page: Page | undefined;
+    public pages: PageObjectManager | undefined;
     private isClosing: boolean = false;
     public data: any = {};
+    public scenarioName: string | undefined;
+    public lastComment: string | undefined;
 
     constructor(options: IWorldOptions) {
         super(options);
@@ -18,6 +22,13 @@ export default class CustomWorld extends World {
             throw new Error('Page is not initialized. Make sure init() was called.');
         }
         return this.page;
+    }
+
+    protected ensurePages(): PageObjectManager {
+        if (!this.pages) {
+            throw new Error('Pages are not initialized. Make sure init() was called.');
+        }
+        return this.pages;
     }
 
     async goto(path: string) {
@@ -87,6 +98,10 @@ export default class CustomWorld extends World {
             viewport: null // This allows the window to be maximized
         });
         this.page = await this.context.newPage();
+        
+        // Initialize Page Object Manager
+        this.pages = new PageObjectManager(this.page);
+        
         // Ensure the window is maximized
         await this.page.evaluate(() => {
             window.moveTo(0, 0);
@@ -148,18 +163,6 @@ export default class CustomWorld extends World {
         
         this.isClosing = true;
         try {
-            // Take final screenshot if page is still available
-            if (this.page && !this.page.isClosed()) {
-                try {
-                    const screenshot = await this.takeScreenshot();
-                    if (screenshot) {
-                        await this.attach(screenshot, 'image/png');
-                    }
-                } catch (error) {
-                    console.error('Final screenshot failed:', error);
-                }
-            }
-
             // Close all resources in reverse order
             if (this.page) {
                 await this.page.close().catch(() => {});
