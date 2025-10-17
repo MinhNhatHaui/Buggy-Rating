@@ -105,18 +105,9 @@ GitHub Actions workflows are configured for:
 - \`.github/workflows/e2e-tests.yml\` - Main test workflow
 - \`.github/workflows/scheduled-tests.yml\` - Scheduled test runs
 
-### Local Workflow Validation
-\`\`\`bash
-# Validate workflows
-npm run validate:workflows
-
-# Test workflows locally
-npm run test:workflow
-\`\`\`
-
 ## 📁 Project Structure
 
-\`\`\`
+```text
 ├── env/                    # Environment configurations
 ├── features/              # Cucumber feature files
 ├── src/
@@ -126,7 +117,6 @@ npm run test:workflow
 ├── test-results/         # Test results and reports
 ├── cucumber.mjs          # Cucumber configuration
 └── playwright.config.ts  # Playwright configuration
-\`\`\`
 
 ## 🧪 Writing Tests
 
