@@ -123,7 +123,7 @@ GitHub Actions workflows are configured for:
 ### Feature Files
 Feature files are located in the \`features\` directory and follow Gherkin syntax:
 
-\`\`\`gherkin
+```gherkin
 Feature: Logout
 
     @logout @smoke
@@ -131,12 +131,12 @@ Feature: Logout
         Given I am logged in as "tester2025" with password "123456789aA!"
         When I logout
         Then I should be returned to the homepage
-\`\`\`
+```
 
 ### Step Definitions
 Step definitions are organized by feature in \`src/step_definitions\`:
 
-\`\`\`typescript
+```typescript
 When('I logout', async function (this: CustomWorld) {
     await this.waitForTimeout(20000);
     try {
@@ -150,7 +150,7 @@ When('I logout', async function (this: CustomWorld) {
         throw error;
     }
 });
-\`\`\`
+```
 
 ## 🤝 Contributing
 
