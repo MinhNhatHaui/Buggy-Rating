@@ -30,31 +30,31 @@ End-to-end testing suite for the Buggy Rating application using Playwright, Cucu
 ## 🛠️ Installation
 
 1. Clone the repository:
-\`\`\`bash
+```bash
 git clone https://github.com/MinhNhatHaui/Buggy-Rating.git
 cd Buggy-Rating
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 3. Install Playwright browsers:
-\`\`\`bash
+```bash
 npx playwright install chromium
-\`\`\`
+```
 
 ## 🔧 Configuration
 
 ### Environment Setup
 
 1. Copy the example environment file:
-\`\`\`bash
+```bash
 cp env/.env.example env/.env
-\`\`\`
+```
 
-2. Update environment variables in \`env/.env\` as needed.
+2. Update environment variables in `env/.env` as needed.
 
 Available environments:
 - staging1 (default)
@@ -64,34 +64,34 @@ Available environments:
 ### Test Configuration
 
 Configure test settings in:
-- \`cucumber.mjs\` - Cucumber configuration
-- \`playwright.config.ts\` - Playwright configuration
-- \`src/config/environment.ts\` - Environment configuration
+- `cucumber.mjs` - Cucumber configuration
+- `playwright.config.ts` - Playwright configuration
+- `src/config/environment.ts` - Environment configuration
 
 ## 🏃‍♂️ Running Tests
 
 ### Running All Tests
-\`\`\`bash
+```bash
 npm run test:bdd
-\`\`\`
+```
 
 ### Running Specific Test Tags
-\`\`\`bash
+```bash
 npm run test:bdd:tags "@smoke"
 npm run test:bdd:logout
-\`\`\`
+```
 
 ### Running Tests in UI Mode
-\`\`\`bash
+```bash
 npm run test:bdd:ui
-\`\`\`
+```
 
 ## 📊 Test Reports
 
 After test execution, reports are generated in:
-- HTML Report: \`test-results/cucumber-report.html\`
-- JSON Report: \`cucumber-report.json\`
-- Screenshots: \`test-results/screenshots\`
+- HTML Report: `test-results/cucumber-report.html`
+- JSON Report: `cucumber-report.json`
+- Screenshots: `test-results/screenshots`
 
 ## 🔄 Continuous Integration
 
@@ -102,8 +102,8 @@ GitHub Actions workflows are configured for:
 - Manual triggers
 
 ### Workflow Files
-- \`.github/workflows/e2e-tests.yml\` - Main test workflow
-- \`.github/workflows/scheduled-tests.yml\` - Scheduled test runs
+- `.github/workflows/e2e-tests.yml` - Main test workflow
+- `.github/workflows/scheduled-tests.yml` - Scheduled test runs
 
 ## 📁 Project Structure
 
@@ -121,7 +121,7 @@ GitHub Actions workflows are configured for:
 ## 🧪 Writing Tests
 
 ### Feature Files
-Feature files are located in the \`features\` directory and follow Gherkin syntax:
+Feature files are located in the `features` directory and follow Gherkin syntax:
 
 ```gherkin
 Feature: Logout
@@ -134,7 +134,7 @@ Feature: Logout
 ```
 
 ### Step Definitions
-Step definitions are organized by feature in \`src/step_definitions\`:
+Step definitions are organized by feature in `src/step_definitions`:
 
 ```typescript
 When('I logout', async function (this: CustomWorld) {
@@ -155,9 +155,9 @@ When('I logout', async function (this: CustomWorld) {
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (\`git checkout -b feature/AmazingFeature\`)
-3. Commit your changes (\`git commit -m 'Add some AmazingFeature'\`)
-4. Push to the branch (\`git push origin feature/AmazingFeature\`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ## 📝 License
