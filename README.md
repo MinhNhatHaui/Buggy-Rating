@@ -117,7 +117,7 @@ GitHub Actions workflows are configured for:
 ├── test-results/         # Test results and reports
 ├── cucumber.mjs          # Cucumber configuration
 └── playwright.config.ts  # Playwright configuration
-
+```
 ## 🧪 Writing Tests
 
 ### Feature Files
